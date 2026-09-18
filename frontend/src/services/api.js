@@ -1,12 +1,17 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://food-delivery-server-gray-sigma.vercel.app/api" || "/api",
+  baseURL:
+    "https://food-delivery-server-9a2u1pnfo-abisheks-projects-68801856.vercel.app/api",
 });
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
   return config;
 });
 
@@ -18,6 +23,7 @@ api.interceptors.response.use(
       localStorage.removeItem("user");
       window.location.href = "/login";
     }
+
     return Promise.reject(error);
   }
 );
